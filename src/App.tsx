@@ -10,6 +10,8 @@ import Dashboard from "./pages/Dashboard";
 import Books from "./pages/Books";
 import Members from "./pages/Members";
 import Circulation from "./pages/Circulation";
+import Fines from "./pages/Fines";
+import Reports from "./pages/Reports";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 
@@ -69,6 +71,26 @@ const AppRoutes = () => {
           <ProtectedRoute>
             <Layout>
               <Circulation />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/fines"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Fines />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/reports"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Reports />
             </Layout>
           </ProtectedRoute>
         }

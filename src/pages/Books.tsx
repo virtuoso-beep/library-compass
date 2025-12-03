@@ -4,8 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Search, Plus, BookOpen } from 'lucide-react';
+import { Search, BookOpen } from 'lucide-react';
 import { toast } from 'sonner';
+import AddBookDialog from '@/components/AddBookDialog';
 
 interface Book {
   id: string;
@@ -57,10 +58,7 @@ const Books = () => {
           <h1 className="text-4xl font-bold text-foreground mb-2">Books Catalog</h1>
           <p className="text-muted-foreground">Browse and manage library collection</p>
         </div>
-        <Button className="shadow-sm">
-          <Plus className="w-4 h-4 mr-2" />
-          Add Book
-        </Button>
+        <AddBookDialog onBookAdded={loadBooks} />
       </div>
 
       <Card className="shadow-card border-border/50">
