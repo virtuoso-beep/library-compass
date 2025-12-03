@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { BookOpen, LayoutDashboard, BookMarked, Users, RefreshCw, LogOut } from 'lucide-react';
+import { BookOpen, LayoutDashboard, BookMarked, Users, RefreshCw, DollarSign, FileText, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface LayoutProps {
@@ -18,6 +18,8 @@ const Layout = ({ children }: LayoutProps) => {
     { href: '/books', label: 'Books', icon: BookMarked },
     { href: '/members', label: 'Members', icon: Users },
     { href: '/circulation', label: 'Circulation', icon: RefreshCw },
+    { href: '/fines', label: 'Fines', icon: DollarSign },
+    { href: '/reports', label: 'Reports', icon: FileText },
   ];
 
   return (
