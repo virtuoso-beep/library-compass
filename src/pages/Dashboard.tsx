@@ -1,51 +1,9 @@
-import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { supabase } from '@/integrations/supabase/client';
 import { BookOpen, Users, BookMarked, AlertCircle } from 'lucide-react';
-
-interface Stats {
-  totalBooks: number;
-  totalMembers: number;
-  activeBorrowings: number;
-  overdueBooks: number;
-}
+import { useDashboardStats } from '@/hooks/useDashboardStats';
 
 const Dashboard = () => {
-  const [stats, setStats] = useState<Stats>({
-    totalBooks: 0,
-    totalMembers: 0,
-    activeBorrowings: 0,
-    overdueBooks: 0,
-  });
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    loadStats();
-  }, []);
-
-  const loadStats = async () => {
-    try {
-      const [booksResult, membersResult, borrowingsResult, overdueResult] = await Promise.all([
-        supabase.from('book_copies').select('*', { count: 'exact', head: true }),
-        supabase.from('members').select('*', { count: 'exact', head: true }).eq('status', 'active'),
-        supabase.from('borrowing_transactions').select('*', { count: 'exact', head: true }).is('return_date', null),
-        supabase.from('borrowing_transactions').select('*', { count: 'exact', head: true })
-          .is('return_date', null)
-          .lt('due_date', new Date().toISOString().split('T')[0]),
-      ]);
-
-      setStats({
-        totalBooks: booksResult.count || 0,
-        totalMembers: membersResult.count || 0,
-        activeBorrowings: borrowingsResult.count || 0,
-        overdueBooks: overdueResult.count || 0,
-      });
-    } catch (error) {
-      console.error('Error loading stats:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { stats, loading } = useDashboardStats();
 
   const statCards = [
     {
@@ -114,24 +72,15 @@ const Dashboard = () => {
             <CardDescription>Common library operations</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <a
-              href="/circulation"
-              className="block p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors"
-            >
+            <a href="/circulation" className="block p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors">
               <div className="font-semibold text-foreground">Process Borrowing</div>
               <div className="text-sm text-muted-foreground">Check out books to members</div>
             </a>
-            <a
-              href="/circulation"
-              className="block p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors"
-            >
+            <a href="/circulation" className="block p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors">
               <div className="font-semibold text-foreground">Process Return</div>
               <div className="text-sm text-muted-foreground">Return books to inventory</div>
             </a>
-            <a
-              href="/members"
-              className="block p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors"
-            >
+            <a href="/members" className="block p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors">
               <div className="font-semibold text-foreground">Register Member</div>
               <div className="text-sm text-muted-foreground">Add new library member</div>
             </a>
