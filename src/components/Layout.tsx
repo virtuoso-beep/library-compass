@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { BookOpen, LayoutDashboard, BookMarked, Users, RefreshCw, DollarSign, FileText, LogOut } from 'lucide-react';
+import { BookOpen, LayoutDashboard, BookMarked, Users, RefreshCw, DollarSign, FileText, LogOut, Search, Package, Calendar } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface LayoutProps {
@@ -18,7 +18,10 @@ const Layout = ({ children }: LayoutProps) => {
     { href: '/books', label: 'Books', icon: BookMarked },
     { href: '/members', label: 'Members', icon: Users },
     { href: '/circulation', label: 'Circulation', icon: RefreshCw },
+    { href: '/reservations', label: 'Reservations', icon: Calendar },
     { href: '/fines', label: 'Fines', icon: DollarSign },
+    { href: '/inventory', label: 'Inventory', icon: Package },
+    { href: '/search', label: 'Search', icon: Search },
     { href: '/reports', label: 'Reports', icon: FileText },
   ];
 
@@ -35,7 +38,7 @@ const Layout = ({ children }: LayoutProps) => {
                 <span className="text-xl font-bold font-serif text-foreground">Library System</span>
               </Link>
               
-              <div className="hidden md:flex space-x-1">
+              <div className="hidden lg:flex space-x-1">
                 {navItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = location.pathname === item.href;
@@ -44,7 +47,7 @@ const Layout = ({ children }: LayoutProps) => {
                       key={item.href}
                       to={item.href}
                       className={cn(
-                        "flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200",
+                        "flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm",
                         isActive
                           ? "bg-primary text-primary-foreground shadow-sm"
                           : "text-muted-foreground hover:text-foreground hover:bg-muted"
