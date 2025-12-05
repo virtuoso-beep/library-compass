@@ -6,3 +6,4 @@ export { memberService } from './MemberService';
 export { circulationService } from './CirculationService';
 export { fineService } from './FineService';
 export { dashboardService } from './DashboardService';
+export { reservationService } from './ReservationService';

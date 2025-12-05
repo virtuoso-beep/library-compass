@@ -7,3 +7,4 @@ export { bookCopyRepository } from './BookCopyRepository';
 export { borrowingRepository } from './BorrowingRepository';
 export { fineRepository } from './FineRepository';
 export { statsRepository } from './StatsRepository';
+export { reservationRepository } from './ReservationRepository';
